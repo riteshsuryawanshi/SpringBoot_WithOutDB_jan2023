@@ -14,6 +14,12 @@ public interface ProductService {
 	public List<Product> getAllProduct();
 	public boolean deleteProductById(String productId);
 	public boolean updateProduct(Product product);
+	
+	public List<Product> sortProductsById_ASC();
+	public List<Product> sortProductsByName_DESC();
+	public Product getMaxPriceProducts();
+	public double countSumOfProductPrice();
+	public int getTotalCountOfProducts();
 
 
 }

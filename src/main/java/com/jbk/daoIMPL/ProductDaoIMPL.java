@@ -39,19 +39,20 @@ public class ProductDaoIMPL implements ProductDao {
 		return product;
 
 	}
+
 	@Override
-	public List<Product> getAllProduct(){
+	public List<Product> getAllProduct() {
 		return list;
-		
+
 	}
 
 	@Override
 	public boolean deleteProductById(String productId) {
-		boolean isDeleted=false;
+		boolean isDeleted = false;
 		for (Product dbproduct : list) {
 			if (dbproduct.getProductId().equals(productId)) {
 				list.remove(dbproduct);
-				isDeleted=true;
+				isDeleted = true;
 				break;
 			}
 		}
@@ -60,17 +61,16 @@ public class ProductDaoIMPL implements ProductDao {
 
 	@Override
 	public boolean updateProduct(Product product) {
-		boolean isUpdated=false;
+		boolean isUpdated = false;
 		for (Product dbproduct : list) {
 			if (dbproduct.getProductId().equals(product.getProductId())) {
 				list.set(list.indexOf(dbproduct), product);
-				isUpdated=true;
+				isUpdated = true;
 				break;
 			}
 		}
-		
+
 		return isUpdated;
 	}
-	
 
 }

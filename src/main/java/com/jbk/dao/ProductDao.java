@@ -12,5 +12,7 @@ public interface ProductDao {
 	public boolean deleteProductById(String productId);
 	public boolean updateProduct(Product product);
 	
+	
+
 
 }

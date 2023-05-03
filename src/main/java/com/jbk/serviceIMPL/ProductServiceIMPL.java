@@ -1,5 +1,7 @@
 package com.jbk.serviceIMPL;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.jbk.dao.ProductDao;
 import com.jbk.model.Product;
 import com.jbk.service.ProductService;
+import com.jbk.sorting.ProductIdComarator;
+import com.jbk.sorting.ProductNameComarator;
 
 @Service
 public class ProductServiceIMPL implements ProductService {
@@ -41,6 +45,43 @@ public class ProductServiceIMPL implements ProductService {
 	@Override
 	public boolean updateProduct(Product product) {
 		return dao.updateProduct(product);
+	}
+
+	@Override
+	public List<Product> sortProductsById_ASC() {
+		List<Product> list = getAllProduct();
+		Collections.sort(list, new ProductIdComarator());
+		return list;
+	}
+
+	@Override
+	public List<Product> sortProductsByName_DESC() {
+		List<Product> list = getAllProduct();
+		Collections.sort(list, new ProductNameComarator());
+		return list;
+	}
+
+	@Override
+	public Product getMaxPriceProducts() {
+
+		List<Product> list = getAllProduct();
+		Product product = list.stream().max(Comparator.comparingDouble(Product::getProductPrice)).get();
+
+		return product;
+	}
+
+	@Override
+	public double countSumOfProductPrice() {
+		List<Product> list = getAllProduct();
+		Double sumOfProductPrice = list.stream().map(product -> product.getProductPrice()).reduce(0d,
+				(sum, price) -> sum + price);
+		return sumOfProductPrice;
+	}
+
+	@Override
+	public int getTotalCountOfProducts() {
+		
+		return getAllProduct().size();
 	}
 
 }
